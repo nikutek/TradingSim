@@ -1,0 +1,385 @@
+ScreenManager:
+    MainWindow:
+    SecondWindow:
+
+<MainWindow>:
+    name: "main"
+
+    canvas.before:
+        Color:
+            rgba: (31/255, 32/255, 36/255, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    money: money
+
+
+
+    stock1_posiadane: stock1_posiadane
+    stock2_posiadane: stock2_posiadane
+    stock3_posiadane: stock3_posiadane
+
+    stock1_name: stock1_name
+    stock2_name: stock2_name
+    stock3_name: stock3_name
+
+    name1: name1
+    price1: price1
+    growth1: growth1
+
+    name2: name2
+    price2: price2
+    growth2: growth2
+
+    name3: name3
+    price3: price3
+    growth3: growth3
+
+
+
+
+
+    BoxLayout:
+        orientation: "vertical"
+        cols: 3
+        size:root.width, root.height
+
+        GridLayout:
+            cols: 3
+
+            #kasa posiadana
+            BoxLayout:
+                padding: (0,0, 0, 100)
+                orientation: "vertical"
+
+                BoxLayout:
+                    orientation: "vertical"
+                    background_color:(46/255,46/255,48/255,1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+
+                        Line:
+                            width: 5
+                            cap: "round"
+                            joint: "round"
+                            rectangle: self.x - 10, self.y, self.width, self.height + 50
+
+                    Label:
+                        font_size: 20
+                        color: (255/255,250/255,227/255,1)
+                        text: "your balance: "
+
+
+                    Label:
+                        font_size: 28
+                        color: (255/255,250/255,227/255,1)
+                        id: money
+                        multiline:  False
+
+
+            #przycisk przejścia
+            BoxLayout:
+                cols:3
+                orientation: "vertical"
+                padding: (50,20,50,0)
+
+                Button:
+                    text: "Item Shop"
+                    on_release:
+                        app.root.current = "second"
+                        root.manager.transition.direction = "down"
+                Label:
+                    text: ""
+
+    #stocki posiadane
+            GridLayout
+                cols:3
+                padding: (0,0,0,100)
+
+                GridLayout:
+                    cols: 2
+                    background_color:(46/255,46/255,48/255,1)
+
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Line:
+                            width: 5
+                            cap: "round"
+                            joint: "round"
+                            rectangle: self.x, self.y -10, self.width + 50, self.height + 50
+
+                    Label:
+                        font_size: 22
+                        color: (255/255,250/255,227/255,1)
+                        id: stock1_name
+                    Label:
+                        font_size: 28
+                        color: (255/255,250/255,227/255,1)
+                        id: stock1_posiadane
+                        text: "0"
+
+                    Label:
+                        font_size: 22
+                        color: (255/255,250/255,227/255,1)
+                        id: stock2_name
+
+                    Label:
+                        font_size: 28
+                        color: (255/255,250/255,227/255,1)
+                        id: stock2_posiadane
+                        text: "0"
+
+                    Label:
+                        font_size: 22
+                        color: (255/255,250/255,227/255,1)
+                        id: stock3_name
+
+                    Label:
+                        font_size: 28
+                        color: (255/255,250/255,227/255,1)
+                        id: stock3_posiadane
+                        text: "0"
+
+    #cała akcja główna
+        GridLayout:
+            cols: 1
+    #stock1
+            GridLayout:
+                id: stock1
+                hue: 0/255
+                saturation: 1
+                brightness: .6
+                canvas.before:
+                    Color:
+                        hsv: self.hue, self.saturation, self.brightness
+
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                cols: 5
+                Label:
+                    id: name1
+                Label:
+                    id: price1
+                Label:
+                    id: growth1
+                Button:
+                    font_size: 24
+                    text: "Buy"
+                    on_press: root.buy1()
+                Button:
+                    font_size: 24
+                    text: "Sell"
+                    on_press: root.sell1()
+
+    #stock 2
+            GridLayout:
+                id: stock2
+                hue: 0/255
+                saturation: 1
+                brightness: .6
+                canvas.before:
+                    Color:
+                        hsv: self.hue, self.saturation, self.brightness
+
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                cols: 5
+                Label:
+                    id: name2
+                Label:
+                    id: price2
+                Label:
+                    id: growth2
+                Button:
+                    font_size: 24
+                    text: "Buy"
+                    on_press: root.buy2()
+                Button:
+                    font_size: 24
+                    text: "Sell"
+                    on_press: root.sell2()
+    #stock 3
+            GridLayout:
+                id: stock3
+                hue: 0/255
+                saturation: 1
+                brightness: .6
+                canvas.before:
+                    Color:
+                        hsv: self.hue, self.saturation, self.brightness
+
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                cols: 5
+                Label:
+                    id: name3
+                Label:
+                    id: price3
+                Label:
+                    id: growth3
+                Button:
+                    font_size: 24
+                    text: "Buy"
+                    on_press: root.buy3()
+                Button:
+                    font_size: 24
+                    text: "Sell"
+                    on_press: root.sell3()
+
+    #przycisk update
+        Button:
+            color: 0.1, 0.8, -0.9, 0.7
+            background_color: 0.3,.4,.5,1
+            font_size: 32
+            size_hint: (1, .7)
+            text: "update"
+            on_press: root.btn()
+
+
+
+<SecondWindow>:
+    name: "second"
+    item1_price: item1_price
+
+    canvas.before:
+        Color:
+            rgba: (31/255, 32/255, 36/255, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        cols: 1
+
+        BoxLayout:
+            cols: 3
+            Label: # empty spacing label
+                text: ""
+
+
+
+
+
+            BoxLayout:
+                cols:3
+                orientation: "vertical"
+                padding: (50,20,50,0)
+
+                Button:
+                    text: "Main Window"
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "up"
+                Label:
+                    text: ""
+
+            Label:
+                text: "3"
+
+
+        #itemek 1 w sklepie
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: (0/255, 93/255, 112/255, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            orintation: "horizontal"
+            cols: 3
+            rows: 1
+
+            Image:
+                size_hint_y: 0.9
+                size_hint_x: 0.9
+                id: imageView1
+                source: 'image.jpg'
+                allow_stretch: True
+
+            Label:
+                font_size: 16
+                text_size: self.width, None
+                size_hint: 1, None
+                text:"Shows colors indicating suggesting stock price change"
+
+            BoxLayout:
+                orientation: "vertical"
+
+                Label:
+                    id: item1_price
+                   # text: "price"
+
+                BoxLayout:
+                    padding: (40,0,40,20)
+                    Button:
+                        text: "Buy"
+                        on_press: root.shop_buy_1()
+
+        #itemek 2 w sklepie
+        BoxLayout:
+
+            canvas.before:
+                Color:
+                    rgba: (0/255, 93/255, 112/255, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            orintation: "horizontal"
+            cols: 3
+            rows: 1
+
+            AsyncImage:
+                id: imageView2
+                size_hint_y: 0.9
+                size_hint_x: 0.9
+                source: 'image.jpg'
+                allow_stretch: True
+
+
+            Label:
+                font_size: 16
+                text_size: self.width, None
+                size_hint: 1, None
+                text:"Price updates happen more frequently (-1s)"
+
+            BoxLayout:
+                orientation: "vertical"
+
+                Label:
+                    id: item2_price
+                   # text: "price"
+
+                BoxLayout:
+                    padding: (40,0,40,20)
+                    Button:
+                        text: "Buy"
+                        on_press: root.shop_buy_2()
+
+
+
+        Label: #empty spacing label
+
+
+
+
+
+
+
+
+
+
+
+
+
+
